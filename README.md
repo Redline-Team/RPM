@@ -9,6 +9,11 @@
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1htdf.svg)](https://status.c0dera.in)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1jo75.svg)](https://status.c0dera.in)
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1jo77.svg)](https://status.c0dera.in)  
+
+# DOWNTIME  
+Something with the server happened and is going to require me to rebuild it again  
+Offline functionality still is here so cached downloads will work  
+
 # Redline Package Manager  
 An attempt at replacing the VRChat Creator Companion with something directly in Unity  
 This came as I got tired of tabbing out of Unity to import things so I decided to make this  
