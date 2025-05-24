@@ -140,15 +140,15 @@ jobs:
           icon_not_found_behavior: 'warn'
           icon_already_present_behavior: 'warn'
 
-      # RHierarchy Module Package
-      - name: Create RHierarchy Module Package
+      # Themer Module Package
+      - name: Create Themer Module Package
         if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'Themer') }}
         uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
         with:
           package-path: Redline-Module-Themer.unitypackage
           include-files: Themer_metaList
           
-      - name: Add Icon to RHierarchy Module Package
+      - name: Add Icon to Themer Module Package
         if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'Themer') }}
         uses: foxscore/add-icon-to-unitypackage@v1
         with:
