@@ -58,7 +58,7 @@ namespace Redline.Scripts.Editor {
             DisplayLinkButton("Status", Link1);
 
             GUILayout.Space(4);
-            GUILayout.Label("Redline Version 3.1.1");
+            GUILayout.Label("Redline Version 4.0.0");
             GUILayout.Label("Redline imported correctly if you are seeing this");
 
             // Changelog ScrollView
@@ -67,7 +67,13 @@ namespace Redline.Scripts.Editor {
                 @"
 == Redline Package Manager ==
 
-Holy crap we're back!
+The Modularized Update!
+We've come to know some people dont want it all at once
+So now we're taking a new approach
+Repurposing the old importer we've created a new system
+Where you can choose what you want modules to import
+This should make the import process faster and more efficient
+And it'll let you import only the modules you want
 
 ---------------------------------------------------------
 ∞∞∞∞∞∞∞∞∞∞∞∞Information∞∞∞∞∞∞∞∞∞∞∞∞

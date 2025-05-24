@@ -1,0 +1,20 @@
+{
+    "name": "Redline.RPM.Editor.RHierarchy",
+    "rootNamespace": "Redline.RPM.Editor.RHierarchy",
+    "references": [
+        "Unity.EditorCoroutines.Editor",
+        "UnityEditor.UI",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

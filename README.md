@@ -1,5 +1,10 @@
 <div align="center">
 
+> **⚠️ WARNING: V4 is not backwards compatible with V3 ⚠️**  
+> With the now released "Modules" feature, V4 is not backwards compatible with V3.  
+> This is because of how modules are imported and with things being rearranged.  
+> You will have to uninstall V3 manually and then install V4.
+
 > **⚠️ WARNING: V3 is not backwards compatible with V2 ⚠️**  
 > You may have to manually remove the old package folder (`dev.runaxr.redline`) to import this update.  
 > We have attempted to automate this process but cannot guarantee it will work in all cases.
@@ -26,9 +31,27 @@ Redline Package Manager (RPM) is a powerful Unity editor extension designed to s
 - **In-Engine Package Management** - Browse, download, and manage packages without leaving Unity
 - **Autosave System** - Configurable automatic saving to prevent work loss
 - **Memory Management** - Multiple presets to optimize Unity's memory usage with custom limit support
-- **Editor Theming** - Personalize Unity's appearance with custom themes
 - **Automatic Updates** - Built-in update checker to keep your tools current
 - **Open Source** - Full source code available under GPL-3.0 license
+
+### 🧩 Modules
+
+<details>
+<summary><b>Themer</b> - Personalize Unity's Appearance</summary>
+
+- Create, edit, and apply custom themes to the Unity Editor
+- Customize colors and visual elements
+- Save and share themes with other users
+</details>
+
+<details>
+<summary><b>RHierarchy</b> - Advanced Unity Hierarchy Enhancement</summary>
+
+- Visual enhancements with color coding and custom icons
+- Improved organization with folders and grouping tools
+- Functional improvements with visibility toggles and context menus
+- Powerful search and filtering capabilities
+</details>
 
 ## 📥 Installation
 
