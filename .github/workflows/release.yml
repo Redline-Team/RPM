@@ -1,4 +1,4 @@
-name: Build Bleeding Edge
+name: Build Release
 
 on: 
   workflow_dispatch:
@@ -11,7 +11,7 @@ env:
   packageName: "dev.redline-team.rpm"
   packagePath: "Packages/dev.redline-team.rpm"
   packageFileName: "Redline"
-  packageReleaseName: "Bleeding Edge"
+  packageReleaseName: "Release"
   modulesPath: "Redline/Scripts/Editor/Modules"
 
 permissions:
@@ -34,7 +34,7 @@ jobs:
       
       - name: Generate Tag
         id: tag
-        run: echo prop="${{ steps.version.outputs.value }}BE" >> $GITHUB_OUTPUT
+        run: echo prop="${{ steps.version.outputs.value }}" >> $GITHUB_OUTPUT
 
       - name: Check If Release Tag Exists
         id: checkReleaseTag
