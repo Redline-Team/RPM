@@ -98,49 +98,40 @@ jobs:
           icon_not_found_behavior: 'warn'
           icon_already_present_behavior: 'warn'
           
-      # Get list of module folders
-      - name: Get Module Directories
+      # Detect and create module packages
+      - name: Detect Modules
         if: ${{ steps.checkReleaseTag.outputs.exists == 'false' }}
-        id: get_modules
+        id: detect_modules
         run: |
+          # Get list of module folders
           MODULE_DIRS=$(find "${{ env.modulesPath }}" -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*" -exec basename {} \;)
+          echo "Found modules: $MODULE_DIRS"
           echo "modules=$MODULE_DIRS" >> $GITHUB_OUTPUT
           
-          # Create a variable to store all module package filenames
-          MODULE_PACKAGES=""
+          # Create module meta lists
           for MODULE in $MODULE_DIRS; do
-            MODULE_PACKAGE="Redline-Module-${MODULE}.unitypackage"
-            MODULE_PACKAGES="${MODULE_PACKAGES}${MODULE_PACKAGE}\n"
-            
-            # Create module meta list
             echo "Creating meta list for $MODULE"
             find "${{ env.modulesPath }}/${MODULE}" -name \*.meta > "${MODULE}_metaList"
           done
           
-          # Save the list of module packages for the release step
-          echo -e "$MODULE_PACKAGES" > module_packages.txt
-          
-      # Create module packages - one step per module to avoid issues
-      - name: Create Module Packages
-        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' }}
-        run: |
-          # Process each module from the previous step
-          for MODULE in ${{ steps.get_modules.outputs.modules }}; do
-            echo "Processing module: $MODULE"
+          # Create a list of module package filenames for the release
+          MODULE_PACKAGES=""
+          for MODULE in $MODULE_DIRS; do
             MODULE_PACKAGE="Redline-Module-${MODULE}.unitypackage"
-            echo "Module package name: $MODULE_PACKAGE"
+            MODULE_PACKAGES="${MODULE_PACKAGES}${MODULE_PACKAGE}\n"
           done
+          echo -e "$MODULE_PACKAGES" > module_packages.txt
       
-      # Dynamic steps for each module
+      # RHierarchy Module Package
       - name: Create RHierarchy Module Package
-        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'RHierarchy') }}
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'RHierarchy') }}
         uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
         with:
           package-path: Redline-Module-RHierarchy.unitypackage
           include-files: RHierarchy_metaList
           
       - name: Add Icon to RHierarchy Module Package
-        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'RHierarchy') }}
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'RHierarchy') }}
         uses: foxscore/add-icon-to-unitypackage@v1
         with:
           package_path: Redline-Module-RHierarchy.unitypackage
@@ -148,11 +139,29 @@ jobs:
           package_not_found_behavior: 'warn'
           icon_not_found_behavior: 'warn'
           icon_already_present_behavior: 'warn'
+
+      # RHierarchy Module Package
+      - name: Create RHierarchy Module Package
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'Themer') }}
+        uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
+        with:
+          package-path: Redline-Module-Themer.unitypackage
+          include-files: Themer_metaList
           
+      - name: Add Icon to RHierarchy Module Package
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'Themer') }}
+        uses: foxscore/add-icon-to-unitypackage@v1
+        with:
+          package_path: Redline-Module-Themer.unitypackage
+          icon_path: '.github/thumbnail.png'
+          package_not_found_behavior: 'warn'
+          icon_not_found_behavior: 'warn'
+          icon_already_present_behavior: 'warn'
+      
       # Add more modules as needed with similar steps
       # For example:
       # - name: Create AnotherModule Module Package
-      #   if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'AnotherModule') }}
+      #   if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.detect_modules.outputs.modules, 'AnotherModule') }}
       #   uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
       #   with:
       #     package-path: Redline-Module-AnotherModule.unitypackage
@@ -163,8 +172,8 @@ jobs:
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
         with:
           name: "${{ env.packageReleaseName }} v${{ steps.version.outputs.value }}"
-          tag_name: "v${{ steps.version.outputs.value }}"
+          tag_name: "${{ steps.tag.outputs.prop }}"
           files: |
             ${{ env.zipFile }}
             ${{ env.unityPackage }}
-            $(cat module_packages.txt)
+            Redline-Module-*.unitypackage
