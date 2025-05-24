@@ -106,7 +106,11 @@ jobs:
           # Get list of module folders
           MODULE_DIRS=$(find "${{ env.modulesPath }}" -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*" -exec basename {} \;)
           echo "Found modules: $MODULE_DIRS"
-          echo "modules=$MODULE_DIRS" >> $GITHUB_OUTPUT
+          
+          # Format modules as a comma-separated list for GitHub Actions output
+          MODULES_CSV=$(echo "$MODULE_DIRS" | tr '\n' ',' | sed 's/,$//')
+          echo "modules=$MODULES_CSV" >> $GITHUB_OUTPUT
+          echo "Modules CSV: $MODULES_CSV"
           
           # Create module meta lists
           for MODULE in $MODULE_DIRS; do
