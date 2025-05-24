@@ -34,7 +34,7 @@ jobs:
       
       - name: Generate Tag
         id: tag
-        run: echo prop="${{ steps.version.outputs.value }}BE" >> $GITHUB_OUTPUT
+        run: echo prop="${{ steps.version.outputs.value }}" >> $GITHUB_OUTPUT
 
       - name: Check If Release Tag Exists
         id: checkReleaseTag
