@@ -98,48 +98,65 @@ jobs:
           icon_not_found_behavior: 'warn'
           icon_already_present_behavior: 'warn'
           
-      # Create module packages
-      - name: Detect and Create Module Packages
+      # Get list of module folders
+      - name: Get Module Directories
         if: ${{ steps.checkReleaseTag.outputs.exists == 'false' }}
+        id: get_modules
         run: |
-          # Get list of module folders
           MODULE_DIRS=$(find "${{ env.modulesPath }}" -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*" -exec basename {} \;)
+          echo "modules=$MODULE_DIRS" >> $GITHUB_OUTPUT
           
           # Create a variable to store all module package filenames
           MODULE_PACKAGES=""
-          
-          # Process each module
           for MODULE in $MODULE_DIRS; do
-            echo "Processing module: $MODULE"
-            
-            # Create module package filename
             MODULE_PACKAGE="Redline-Module-${MODULE}.unitypackage"
-            
-            # Add to the list of module packages
             MODULE_PACKAGES="${MODULE_PACKAGES}${MODULE_PACKAGE}\n"
             
             # Create module meta list
             echo "Creating meta list for $MODULE"
             find "${{ env.modulesPath }}/${MODULE}" -name \*.meta > "${MODULE}_metaList"
-            
-            # Create module package
-            echo "Creating package for $MODULE"
-            npx pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b "${MODULE}_metaList" "$MODULE_PACKAGE"
-            
-            # Check for module-specific icon first, then fall back to default icon
-            if [ -f ".github/module_icons/${MODULE}.png" ]; then
-              echo "Using module-specific icon for ${MODULE}"
-              npx foxscore/add-icon-to-unitypackage@v1 "$MODULE_PACKAGE" ".github/module_icons/${MODULE}.png"
-            elif [ -f ".github/thumbnail.png" ]; then
-              echo "Using default icon for ${MODULE}"
-              npx foxscore/add-icon-to-unitypackage@v1 "$MODULE_PACKAGE" ".github/thumbnail.png"
-            else
-              echo "No icon found for ${MODULE}"
-            fi
           done
           
           # Save the list of module packages for the release step
           echo -e "$MODULE_PACKAGES" > module_packages.txt
+          
+      # Create module packages - one step per module to avoid issues
+      - name: Create Module Packages
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' }}
+        run: |
+          # Process each module from the previous step
+          for MODULE in ${{ steps.get_modules.outputs.modules }}; do
+            echo "Processing module: $MODULE"
+            MODULE_PACKAGE="Redline-Module-${MODULE}.unitypackage"
+            echo "Module package name: $MODULE_PACKAGE"
+          done
+      
+      # Dynamic steps for each module
+      - name: Create RHierarchy Module Package
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'RHierarchy') }}
+        uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
+        with:
+          package-path: Redline-Module-RHierarchy.unitypackage
+          include-files: RHierarchy_metaList
+          
+      - name: Add Icon to RHierarchy Module Package
+        if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'RHierarchy') }}
+        uses: foxscore/add-icon-to-unitypackage@v1
+        with:
+          package_path: Redline-Module-RHierarchy.unitypackage
+          icon_path: '.github/thumbnail.png'
+          package_not_found_behavior: 'warn'
+          icon_not_found_behavior: 'warn'
+          icon_already_present_behavior: 'warn'
+          
+      # Add more modules as needed with similar steps
+      # For example:
+      # - name: Create AnotherModule Module Package
+      #   if: ${{ steps.checkReleaseTag.outputs.exists == 'false' && contains(steps.get_modules.outputs.modules, 'AnotherModule') }}
+      #   uses: pCYSl5EDgo/create-unitypackage@cfcd3cf0391a5ef1306342794866a9897c32af0b
+      #   with:
+      #     package-path: Redline-Module-AnotherModule.unitypackage
+      #     include-files: AnotherModule_metaList
         
       - name: Make Release
         if: ${{ steps.checkReleaseTag.outputs.exists == 'false' }}
