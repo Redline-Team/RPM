@@ -10,7 +10,7 @@ namespace Redline.Editor {
     public class RedlineUpdateCheck: MonoBehaviour {
         [InitializeOnLoad]
         public class Startup {
-            private const string VersionURL = "https://redline.arch-linux.pro/API/version.txt";
+            private const string VersionURL = "https://raw.githubusercontent.com/Redline-Team/RPM/refs/heads/main/latestrelease.txt";
             private const int RequestTimeoutSeconds = 10;
             private static readonly string CurrentVersion = RedlineVersionUtility.GetCurrentVersion();
             private static readonly HttpClient httpClient = new HttpClient { Timeout = System.TimeSpan.FromSeconds(RequestTimeoutSeconds) };
