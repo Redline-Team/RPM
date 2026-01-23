@@ -75,7 +75,7 @@ We have attempted to automate this process but cannot guarantee it will work in 
 
 [![Website](https://img.shields.io/website?down_color=red&down_message=Offline&label=arch-linux.pro&style=for-the-badge&up_color=cyan&up_message=Online&url=https%3A%2F%2Farch-linux.pro)](https://arch-linux.pro)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg?style=for-the-badge)](LICENSE)
-[![Patreon](https://img.shields.io/badge/Patreon-Support-pink?style=for-the-badge)](https://www.patreon.com/_Numeri)
+[![Patreon](https://img.shields.io/badge/Patreon-Support-pink?style=for-the-badge)](https://www.patreon.com/LoonieLoonz)
 [![Rider](https://img.shields.io/badge/Developed%20with-Rider-DD1265?style=for-the-badge&logo=rider&logoColor=white)](https://www.jetbrains.com/rider/)
 
 </div>
@@ -191,7 +191,7 @@ We offer automatically built packages for easy releasing:
 
 ### Core Team
 
-| <img src="https://github.com/Numeri-Dev.png" width="100" height="100" alt="Numeri"><br>[_Numeri](https://github.com/Numeri-Dev) | <img src="https://github.com/Redline-Team.png" width="100" height="100" alt="Redline Team"><br>[Redline Team](https://github.com/Redline-Team) |
+| <img src="https://github.com/LoonieLoonz.png" width="100" height="100" alt="LoonieLoonz"><br>[LoonieLoonz](https://github.com/LoonieLoonz) | <img src="https://github.com/Redline-Team.png" width="100" height="100" alt="Redline Team"><br>[Redline Team](https://github.com/Redline-Team) |
 |:---:|:---:|
 | Lead Developer | Organization |
 

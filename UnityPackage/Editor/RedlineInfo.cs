@@ -116,7 +116,7 @@ Unity or manually via the package manager.
 
 ---------------------------------------------------------
 ∞∞∞∞Contributors to Redline Package Manager∞∞∞∞
-> Developer: _Numeri
+> Developer: LoonieLoonz
 > Contributor: RileyKun
 ============================================
                 ");

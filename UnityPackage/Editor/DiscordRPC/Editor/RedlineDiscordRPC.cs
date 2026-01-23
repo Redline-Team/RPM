@@ -118,7 +118,7 @@ namespace Redline.Editor.DiscordRPC {
       Presence.LargeImageKey = "rpm";
       Presence.LargeImageText = "Redline Package Manager";
       Presence.SmallImageKey = "numeri";
-      Presence.SmallImageText = "By Numeri";
+      Presence.SmallImageText = "By LoonieLoonz";
       
       // Add buttons for GitHub repo and website
       Presence.Button1Label = "Github Repo";
